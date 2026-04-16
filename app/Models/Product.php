@@ -12,7 +12,7 @@ class Product extends Model
         "price"
     ];
     public function productDetails(){
-        return $this->hasOne(ProductDetail::class,'product_id');
+        return $this->hasOne(ProductDetail::class);
     }
 
     public function images(){
