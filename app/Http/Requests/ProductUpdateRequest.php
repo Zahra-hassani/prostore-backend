@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ProductRequest extends FormRequest
+class ProductUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,15 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required","string","min:3",Rule::unique('products','name')],
-            "price" => "required|numeric|max:150000",
-            "stock" => "required|integer|max:200",
-            "description" => "required|string|min:10",
-            "brand" => "required|string",
-            "category" => "required|string",
-            "img_url1" => "required|image|mimes:jpg,png,jpeg,webp",
-            "img_url2" => "required|image|mimes:jpg,png,jpeg,webp"
+            "name" => ["nullable","string","min:3",Rule::unique('products','name')],
+            "stock" => "nullable|integer|max:200",
+            "price" => "nullable|numric|max:150000",
+            "brand" => "nullable|string",
+            "category" => "nullable|string",
+            "description" => "nullable|string|max:10",
+            "img_url" => "nullable|string",
+            "imageable_type" => "required|string",
+            "imageable_id" => "required|integer"
         ];
     }
 }
