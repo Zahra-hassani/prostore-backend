@@ -24,15 +24,14 @@ class ProductUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["nullable","string","min:3",Rule::unique('products','name')],
+            "name" => ["nullable","string","min:3"],
             "stock" => "nullable|integer|max:200",
             "price" => "nullable|numric|max:150000",
             "brand" => "nullable|string",
             "category" => "nullable|string",
             "description" => "nullable|string|max:10",
-            "img_url" => "nullable|string",
-            "imageable_type" => "required|string",
-            "imageable_id" => "required|integer"
+            "image1" => "nullable|image|mimes:jpg,png,jpeg,gif,webp",
+            "image2" => "nullable|image|mimes:jpg,png,jpeg,gif,webp",
         ];
     }
 }
