@@ -17,10 +17,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Product::with(['productDetails','images','reviews'])->paginate(10);
-        // 
+        $data = Product::with(['productDetails','images','reviews'])->orderBy("created_at","desc")->paginate(10);
         return ProductResource::collection($data);
         // return response()->json($data);
     }
@@ -103,7 +102,7 @@ class ProductController extends Controller
             ]);
             // images path
             $image1 = null;
-            $image = null;
+            $image2 = null;
 
             if($request->hasFile('image1') && $request->hasFile('image2')){
                 $image1 = $request->file("image1")->store('product_images',"public");
