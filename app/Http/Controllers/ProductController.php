@@ -9,7 +9,7 @@ use \Illuminate\Support\Facades\Storage;
 use App\Models\Images;
 use App\Models\Product;
 use App\Models\ProductDetail;
-use Exception;
+use Exception; 
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
