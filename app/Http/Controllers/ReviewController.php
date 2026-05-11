@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\AddReviewRequest;
+use App\Http\Resources\ReviewResource;
+use App\Models\Review;
+use Exception;
+use Illuminate\Http\Request;
+
+class ReviewController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+       $reviews = Review::with(['product','user'])->get();
+       $reviews->load(['product','user']);
+       return ReviewResource::collection($reviews);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(AddReviewRequest $request)
+    {
+        try{
+            $review = Review::create($request->validated());
+            $review->load(['product','user']);
+            return new ReviewResource($review);
+        }
+        catch(Exception $err){
+            return response()->json([
+                "message" => $err->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
