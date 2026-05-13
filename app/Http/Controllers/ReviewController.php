@@ -42,7 +42,16 @@ class ReviewController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try{
+           $review = Review::findOrFail($id);
+           $review->load(['user','product']);
+           return new ReviewResource($review);
+        }
+        catch(Exception $err){
+            return response()->json([
+                "message" => $err->getMessage()
+            ]);
+        }
     }
 
     /**
