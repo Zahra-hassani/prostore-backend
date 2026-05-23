@@ -31,9 +31,12 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Review $review)
     {
         //
+       $review->load(['user','product']);
+       return new ReviewResource($review);
+
     }
 
     /**
@@ -41,7 +44,8 @@ class ReviewController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        // middleware
     }
 
     /**
@@ -49,6 +53,7 @@ class ReviewController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // middleware 
+
     }
 }

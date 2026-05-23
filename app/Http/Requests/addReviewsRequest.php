@@ -23,8 +23,8 @@ class addReviewsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "product_id"=> "required|integer|exists:Product.id",
-            "user_id"=> "required|integer|exists:User.id",
+            "product_id"=> "required|integer",
+            "user_id"=> "required|integer",
             "comment"=> "nullable|string|min:4",
             "rating"=> "required|integer|min:0"
         ];
