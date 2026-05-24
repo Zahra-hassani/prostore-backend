@@ -15,4 +15,5 @@ Route::get('/user', function (Request $request) {
 // });
 Route::apiResource('products',ProductController::class);
 Route::apiResource('reviews',ReviewController::class);
-Route::apiResource('auth',AuthController::class);
+Route::apiResource('auth',AuthController::class)->only('login');
+// Route::middleware('auth:sanctum')->;
