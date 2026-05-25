@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
@@ -10,4 +11,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('products',ProductController::class);
+Route::apiResource('auth',AuthController::class);
 Route::apiResource('/reviews',ReviewController::class);
