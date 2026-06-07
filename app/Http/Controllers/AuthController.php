@@ -32,24 +32,30 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function login(Request $request)
+    public function store(Request $request)
     {
         //
         $request->validate([
-            "email"=> "required|string|min:3",
+            "email"=> "required|string|min:5",
             "password"=>"required|string|min:5"
+        ],[
+          "email.required"=> "the email is required, please enter your email address",
+          "email.string"=> "the email must be a text",
+          "password.min"=> "the password must be at least 5 characters"  
         ]);
-
+     
       $user =   User::where('email', $request->email)->first();
       if($user && Hash::check($request->password, $user->password)){
          $token =  $user->createToken('auth_token')->plainTextToken;
-                return  response()->json([
+        return  response()->json([
         "data"=> $token,
+        "success"=>true
       ]);
       }
       else{
         return response()->json([
             "data"=>"something went wrong",
+            "success"=> false
         ]);
       }
 
@@ -64,6 +70,12 @@ class AuthController extends Controller
         //
     }
 
+
+    public function register(){
+        return response()->json([
+            "data"=>"something"
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      */
