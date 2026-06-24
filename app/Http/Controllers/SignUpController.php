@@ -41,13 +41,13 @@ class SignUpController extends Controller
             $token = $user->createToken("auth_token")->plainTextToken;
             return response()->json([
                 "message" => $token,
-                "status" => true,
+                "success" => true,
             ]);
         }
         catch(Exception $e){
             return response()->json([
                 "message" => $e->getMessage(),
-                "status"=> false
+                "success"=> false
             ]);
         }
     }

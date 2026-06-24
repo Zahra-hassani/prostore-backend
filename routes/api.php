@@ -11,6 +11,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::prefix("/dashboard")->group(function () {
+    Route::get("/current-reviews",[ReviewController::class,"currentMonthReviews"]);
+    Route::get("/previous-month-reviews",[ReviewController::class,"getPreviousMonthReviews"]);
+});
+
 Route::apiResource('products',ProductController::class);
 Route::apiResource('auth',AuthController::class)->only('store');
 Route::apiResource('check-token',AuthController::class)->only('show');

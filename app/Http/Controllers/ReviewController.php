@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -68,5 +69,37 @@ class ReviewController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // Count the current month's reviews
+    public function currentMonthReviews(){
+        try{
+        $reviews = Review::whereDate("created_at","<=",Carbon::today())->whereDate("created_at",">",Carbon::now()->subDays(30))->count();
+        return response()->json([
+            "message"=> $reviews,
+            "success" => true
+        ]);
+        }catch(Exception $err){
+            return response()->json([
+                "message"=> $err->getMessage(),
+                "success" => false
+            ]);
+        }
+    }
+
+    public function getPreviousMonthReviews(){
+        try{
+            $previousReviews = Review::whereDate("created_at","<=",Carbon::now()->subDays(30))->whereDate("created_at",">",Carbon::now()->subDays(60))->count();
+            return response()->json([
+                "message"=> $previousReviews,
+                "success"=> true
+            ]);
+        }
+        catch(Exception $err){
+            return response()->json([
+                "message"=> $err->getMessage(),
+                "success"=> false
+            ]);
+        }
     }
 }
