@@ -17,6 +17,8 @@ Route::prefix("/dashboard")->middleware("auth:sanctum")->group(function () {
     Route::get("/previous-month-reviews",[ReviewController::class,"getPreviousMonthReviews"]);
     Route::get("/current-month-users",[UserController::class,"currentMonthUsers"]);
     Route::get("/previous-month-users",[UserController::class,"getPreviousMonthUsers"]);
+    Route::get("/current-month-products",[ProductController::class,"currentMonthProducts"]);
+    Route::get("/previous-month-products",[ProductController::class,"previousMonthProducts"]);
 });
 
 Route::apiResource('products',ProductController::class);

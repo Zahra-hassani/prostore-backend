@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
+use Carbon\Carbon;
 use \Illuminate\Support\Facades\Storage;
 use App\Models\Images;
 use App\Models\Product;
@@ -159,5 +160,31 @@ class ProductController extends Controller
     }
 
     // count current month products
-    public function currentMonthProducts(){}
+    public function currentMonthProducts(){
+        try{
+        $products = Product::whereDate("created_at",'<=',now())->whereDate("created_at",">",Carbon::now()->subDays(30))->count();
+        return response()->json([
+            "products" => $products
+        ]);
+        }catch(Exception $err){
+            return response()->json([
+                "products" => $err->getMessage()
+            ]);
+        }
+    }
+
+    // count previous month products
+    public function previousMonthProducts(){
+        try{
+            $products = Product::WhereDate("created_at","<=",Carbon::now()->subDays(30))->whereDate("created_at",">",Carbon::now()->subDays(60))->count();
+            return response()->json([
+                "products"=> $products
+            ]);
+        }
+        catch(Exception $err){
+            return response()->json([
+                "products" => $err->getMessage()
+            ]);
+        }
+    }
 }
