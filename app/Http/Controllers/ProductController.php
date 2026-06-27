@@ -157,4 +157,7 @@ class ProductController extends Controller
             ]);
         }
     }
+
+    // count current month products
+    public function currentMonthProducts(){}
 }

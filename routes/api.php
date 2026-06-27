@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,9 +12,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix("/dashboard")->group(function () {
+Route::prefix("/dashboard")->middleware("auth:sanctum")->group(function () {
     Route::get("/current-reviews",[ReviewController::class,"currentMonthReviews"]);
     Route::get("/previous-month-reviews",[ReviewController::class,"getPreviousMonthReviews"]);
+    Route::get("/current-month-users",[UserController::class,"currentMonthUsers"]);
+    Route::get("/previous-month-users",[UserController::class,"getPreviousMonthUsers"]);
 });
 
 Route::apiResource('products',ProductController::class);

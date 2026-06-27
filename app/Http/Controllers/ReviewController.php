@@ -76,29 +76,25 @@ class ReviewController extends Controller
         try{
         $reviews = Review::whereDate("created_at","<=",Carbon::today())->whereDate("created_at",">",Carbon::now()->subDays(30))->count();
         return response()->json([
-            "message"=> $reviews,
-            "success" => true
+            "reviews"=> $reviews,
         ]);
         }catch(Exception $err){
             return response()->json([
-                "message"=> $err->getMessage(),
-                "success" => false
+                "reviews"=> $err->getMessage(),
             ]);
         }
     }
 
     public function getPreviousMonthReviews(){
         try{
-            $previousReviews = Review::whereDate("created_at","<=",Carbon::now()->subDays(30))->whereDate("created_at",">",Carbon::now()->subDays(60))->count();
+            $previousReviews = Review::whereDate("created_at","<",Carbon::now()->subDays(30))->whereDate("created_at",">",Carbon::now()->subDays(60))->count();
             return response()->json([
-                "message"=> $previousReviews,
-                "success"=> true
+                "reviews"=> $previousReviews,
             ]);
         }
         catch(Exception $err){
             return response()->json([
-                "message"=> $err->getMessage(),
-                "success"=> false
+                "reviews"=> $err->getMessage(),
             ]);
         }
     }
