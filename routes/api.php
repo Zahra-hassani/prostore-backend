@@ -12,13 +12,14 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix("/dashboard")->middleware("auth:sanctum")->group(function () {
+Route::prefix("/dashboard")->group(function () {
     Route::get("/current-reviews",[ReviewController::class,"currentMonthReviews"]);
     Route::get("/previous-month-reviews",[ReviewController::class,"getPreviousMonthReviews"]);
     Route::get("/current-month-users",[UserController::class,"currentMonthUsers"]);
     Route::get("/previous-month-users",[UserController::class,"getPreviousMonthUsers"]);
     Route::get("/current-month-products",[ProductController::class,"currentMonthProducts"]);
     Route::get("/previous-month-products",[ProductController::class,"previousMonthProducts"]);
+    Route::get("/all-products",[ProductController::class,"getAllProducts"]);
 });
 
 Route::apiResource('products',ProductController::class);

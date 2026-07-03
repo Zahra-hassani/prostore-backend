@@ -26,6 +26,13 @@ class ProductController extends Controller
         // return response()->json($data);
     }
 
+    public function getAllProducts(){
+        $products = Product::with(['productDetails','images'])->paginate(10);
+        return response()->json([
+            "products" => $products
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
