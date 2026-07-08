@@ -27,6 +27,8 @@ class ProductRequest extends FormRequest
             "name" => ["required","string","min:3",Rule::unique('products','name')],
             "price" => "required|numeric|max:150000",
             "stock" => "required|integer|max:200",
+            "man_date" => "required|date",
+            "expire_date" => "required|date",
             "description" => "required|string|min:10",
             "brand" => "required|string",
             "category" => "required|string",

@@ -41,9 +41,10 @@ class ProductController extends Controller
         $product = Product::create([
             "name" => $request->name,
             "price" => $request->price,
-            "stock"=> $request->stock
+            "stock"=> $request->stock,
+            "man_date" => $request->man_date,
+            "expire_date" => $request->expire_date
         ]);
-        $product->save();
         $product->productDetails()->create([
             "description" => $request->description,
             "brand" => $request->brand,

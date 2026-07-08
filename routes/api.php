@@ -20,6 +20,7 @@ Route::prefix("/dashboard")->group(function () {
     Route::get("/current-month-products",[ProductController::class,"currentMonthProducts"]);
     Route::get("/previous-month-products",[ProductController::class,"previousMonthProducts"]);
     Route::get("/all-products",[ProductController::class,"getAllProducts"]);
+    Route::post("/create-product",[ProductController::class,"store"]);
 });
 
 Route::apiResource('products',ProductController::class);
