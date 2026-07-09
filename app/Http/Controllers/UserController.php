@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -15,6 +17,8 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::where('role','client')->orderBy('name','asc')->paginate(15);
+        return UserResource::collection($users);
     }
 
     /**
@@ -23,6 +27,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        Gate::authorize('create');
+        if(Gate::allows('create')){
+    
+        }
+        else{
+            abort(403);
+        }
     }
 
     /**
