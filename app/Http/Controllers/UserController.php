@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::where('role','client')->orderBy('name','asc')->paginate(15);
+        $users = User::where('role','client')->orderBy('name','asc')->paginate(3);
         return UserResource::collection($users);
     }
 
@@ -57,7 +57,26 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            // Gate::authorize('delete');
+            // if(Gate::allows('delete')){
+            $user = User::findOrFail($id);
+            $user->delete();
+            return response()->json([
+                "message" => "1 user deleted successfully"
+            ]);
+            // }
+            // else{
+            //     return response()->json([
+            //         "message" => "Not allowed to delete"
+            //     ]);
+            // }
+        }
+        catch(Exception $err){
+            return response()->json([
+                "message" => $err->getMessage()
+            ]);
+        }
     }
 
     // Count current month users
