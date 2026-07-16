@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::prefix("/dashboard")->group(function () {
+    Route::apiResource('reviews',ReviewController::class);
     Route::get("/current-reviews",[ReviewController::class,"currentMonthReviews"]);
     Route::get("/previous-month-reviews",[ReviewController::class,"getPreviousMonthReviews"]);
     Route::get("/current-month-users",[UserController::class,"currentMonthUsers"]);

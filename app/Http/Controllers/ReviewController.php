@@ -16,7 +16,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-       $reviews = Review::with(['product','user'])->get();
+       $reviews = Review::with(['product','user'])->paginate(10);
        $reviews->load(['product','user']);
        return ReviewResource::collection($reviews);
     }
