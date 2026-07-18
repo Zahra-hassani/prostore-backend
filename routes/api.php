@@ -24,6 +24,7 @@ Route::prefix("/dashboard")->group(function () {
     Route::post("/create-product",[ProductController::class,"store"]);
     Route::apiResource('/all-users',UserController::class);
     Route::delete('/delete-user/{id}',[UserController::class,"destroy"]);
+    Route::put('/update-user/{id}',[UserController::class,'update']);
 });
 
 Route::apiResource('products',ProductController::class);
