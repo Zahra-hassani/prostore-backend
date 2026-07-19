@@ -49,7 +49,29 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $request->validate([
+                "name" => "string|min:3|nullable",
+                "email" => "nullable|min:10|string",
+                "phone_number" => "nullable|string|min:10|max:14"
+            ]);
+            $user = User::findOrFail($id);
+            $user->update([
+                "name" => $request->name,
+                "email" => $request->email,
+                "phone_number" => $request->phone_number
+            ]);
+            return response()->json([
+                "message" => "User updated successfully",
+                "success" => true
+            ]);
+        }
+        catch(Exception $e){
+            return response()->json([
+                "message" => $e->getMessage(),
+                "success" => false
+            ]);
+        }
     }
 
     /**

@@ -68,7 +68,20 @@ class ReviewController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $review = Review::findOrFail($id);
+            $review->delete();
+            return response()->json([
+                "message" => "review deleted successfully",
+                "success" => true
+            ]);
+        }
+        catch(Exception $err){
+            return response()->json([
+                "message" => $err->getMessage(),
+                "success" => false
+            ]);
+        }
     }
 
     // Count the current month's reviews
