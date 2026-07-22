@@ -21,16 +21,18 @@ class SignUpController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        // try{
             $newUser = $request->validate([
                 "name" => "required|string|min:3",
                 "email"=> "required|string|min:5",
                 "password"=> "required|string|min:6",
                 "phone_number" => "required|string|min:10|max:14",
             ],[
-                "name.string" => "The name must be a text",
-                "name.required"=> "Please fill the name field",
-                "phone_number.required"=> "Enter your phone number please",
+                "name.string" => "The name must be a text.",
+                "name.required"=> "Please fill the name field.",
+                "phone_number.required"=> "Enter your phone number please.",
+                "password.required" => "The password field is required.",
+                "password.min" => "Your password must be at least 6 characters."
             ]);
             $user = User::create([
                 "name"=> $newUser['name'],
@@ -43,13 +45,13 @@ class SignUpController extends Controller
                 "message" => $token,
                 "success" => true,
             ]);
-        }
-        catch(Exception $e){
-            return response()->json([
-                "message" => $e->getMessage(),
-                "success"=> false
-            ]);
-        }
+        // }
+        // catch(Exception $e){
+            // return response()->json([
+            //     "message" => $e->getMessage(),
+            //     "success"=> false
+            // ]);
+        // }
     }
 
     /**
