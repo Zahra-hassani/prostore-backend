@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -11,7 +12,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $carts = Cart::with(['cartItem','user'])->paginate(3);
+        return response()->json([
+            "data" => $carts,
+            "success" => true
+        ]);
     }
 
     /**

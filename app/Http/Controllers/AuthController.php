@@ -39,7 +39,8 @@ class AuthController extends Controller
         ],[
             "email.required" => "The email is required, please enter your email address",
             "email.string" => "Email must be a text",
-            "password.min"=> "The password must be at least 5 characters"
+            "password.min"=> "The password must be at least 5 characters",
+            "password.required" => "Password is required for signing in"
         ]);
 
         $user = User::where('email', $request->email)->first();
